@@ -33,3 +33,16 @@ labels: [project, modal]
 Compare binary and partial-credit rewards on GSM8K or Countdown at the same budget.
 Report reward curves, output length, and before and after accuracy.
 Log each case of reward hacking.
+
+## 3. DDP to FSDP2 on 2 to 4 Modal GPUs, with a rank killed mid-run
+---
+id: 3
+status: open
+created: 2026-10-21
+updated: 2026-10-21
+priority: medium
+labels: [project, modal]
+---
+
+Measure MFU, peak memory per GPU, exposed communication time, and loss parity against 1 GPU.
+Then kill one rank. Measure recovery time, and lost work against checkpoint overhead as the checkpoint interval changes.
