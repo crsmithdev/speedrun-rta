@@ -77,6 +77,7 @@ Also record which device fills each cache.
 ### Notes
 
 - 2026-10-22 03:08: The compile cache now lives in modal-lib (modal_lib/cache.py, cache_volume(app, gpu)); key it by device there.
+- 2026-10-22 09:06: modal-lib v2 keys the mlib recipe cache by torch version + nvidia-smi device name (<app>-cache/<torch>-<device>.tar). clock.py (airbench/rta.py) still keys by the requested GPU type; that is what is left.
 
 ## 6. airbench: split the 0.13-point run-to-run spread by source
 ---
