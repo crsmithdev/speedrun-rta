@@ -20,6 +20,105 @@ with CUDA events, mean over the runs; it excludes `torch.compile`.
 
 The A100 time is 2.3% above the upstream figure.
 
+## Real time: cold start to 94% on Modal
+
+In speedrunning, in-game time leaves out the loading screens and real time
+does not. The training time above is in-game time. `clock.py` measures real
+time: each call starts a fresh Modal container and records wall-clock time
+for each phase until the result.
+
+- **Compile:** the warmup run of `torch.compile(mode="max-autotune")`.
+- **Train:** the script's own training time for one run.
+- **First result:** container start to the first 94% result. Modal bills
+  this span.
+- **Dollars:** the first result, and 100 runs in one container, at the GPU
+  prices on modal.com/pricing on 2026-10-21. CPU and memory are left out.
+- **Cold:** an empty compile cache.
+- **Warm:** the Inductor and Triton caches from an earlier call on that GPU
+  type, unpacked from a Modal Volume.
+
+Medians of 3 calls, 5 runs per call:
+
+| GPU | Cache | Compile (s) | Train (s) | First result (s) | $ first | $ 100 runs |
+| - | - | - | - | - | - | - |
+| L4 | cold | 214.2 | 10.99 | 230.0 | 0.051 | 0.313 |
+| L4 | warm | 60.8 | 10.16 | 78.2 | 0.017 | 0.257 |
+| A10 | warm | 40.8 | 7.11 | 52.4 | 0.016 | 0.247 |
+| L40S | cold | 165.0 | 3.00 | 170.2 | 0.092 | 0.266 |
+| L40S | warm | 36.2 | 2.99 | 46.1 | 0.025 | 0.200 |
+| A100-SXM4-40GB | cold | 165.9 | 2.76 | 171.2 | 0.100 | 0.270 |
+| RTX PRO 6000 | cold | 108.7 | 1.74 | 112.0 | 0.094 | 0.250 |
+| RTX PRO 6000 | warm | 31.6 | 1.75 | 36.3 | 0.031 | 0.188 |
+| H100 | cold | 127.1 | 1.33 | 132.1 | 0.145 | 0.308 |
+| H100 | warm | 31.1 | 1.33 | 38.4 | 0.042 | 0.205 |
+| H200 | cold | 125.8 | 1.25 | 129.6 | 0.163 | 0.341 |
+| H200 | warm | 27.9 | 1.24 | 34.4 | 0.043 | 0.218 |
+| B200 | cold | 76.6 | 0.93 | 79.1 | 0.137 | 0.312 |
+| B200 | warm | 22.1 | 0.93 | 31.7 | 0.055 | 0.237 |
+
+Every cell has a mean accuracy between 93.92% and 94.19%.
+`results/clock.md` has every cell with all phases.
+
+What the table shows:
+
+- **Compile is most of the real time.** From cold, the compile takes 77 to
+  214 s and the training takes 0.9 to 11 s. The training time that
+  speedruns report is 1% to 5% of the real time to the first result.
+- **The compile cache saves more than a faster GPU.** A warm cache cuts the
+  compile by 3.4 to 4.6 times. A warm L40S gets its first result in 46 s,
+  faster than a cold B200 at 79 s, for 18% of the cost.
+- **The slowest GPUs are the cheapest for one result.** A warm A10 or L4
+  costs under $0.02. A cold H200 costs $0.16 for the same result.
+- **The cost of 100 runs is nearly flat across GPUs.** It is $0.19 to
+  $0.34 for every type. A faster GPU costs more per second, and it finishes
+  the training in fewer seconds by about the same ratio. The warm RTX PRO
+  6000 is the cheapest at $0.19.
+
+### What you ask for is not always what you get
+
+Modal does not always give the device that the call asks for. Calls for
+`A100-40GB` got an A100-SXM4-80GB in 2 of 6 calls. Calls for `A100-80GB`
+got an SXM4 card in 3 of 6 calls and a PCIe card in the rest. Calls for
+`A10` got an A10G in 2 of 6 calls.
+
+The compile cache is specific to the device. Each warm call hit all 10 FX
+graphs or missed all 10. Every miss was on a different device from the one
+that most calls of that type got. The sweep did not record which device
+filled each cache, so this is the pattern, not a direct check:
+
+| Asked for | Got | Cache | FX graph hits | Compile (s) | First result (s) |
+| - | - | - | - | - | - |
+| A100-40GB | A100-SXM4-40GB | warm | 10 | 48.5 | 59.1 |
+| A100-40GB | A100-SXM4-80GB | warm (median of 2) | 0 | 140.9 | 151.8 |
+| A100-80GB | A100 80GB PCIe | warm (median of 2) | 10 | 28.7 | 36.1 |
+| A100-80GB | A100-SXM4-80GB | warm | 0 | 110.4 | 119.4 |
+
+To keep a warm cache on these types, key the cache by the device name, not
+by the type that the call asks for.
+
+### Two problems on the way
+
+- **A cache on the Volume, file by file, was slower than no cache.** The
+  cache is 5,165 files (170 MB). The Volume read them at about 0.39 s per
+  file, so the copy took 2,009 s on an L4. The cache now goes to the Volume
+  as one tar file, and the unpack takes 1.3 to 4.7 s.
+- **The T4 does not run the unchanged script.** It runs out of its 16 GB
+  during the compile warmup, with 12.5 GB in CUDA graph memory pools
+  (`results/clock_T4_oom.txt`).
+
+### What this does not show
+
+- **Few calls:** each cell has 3 calls or fewer, and the device split
+  leaves some cells with 1.
+- **Start time:** the time from the call to the container start was
+  either 2 to 6 s or 17 to 90 s. I did not find the cause. The account
+  limit is 10 GPUs and the sweep ran 8 calls at a time; containers that are
+  still stopping can count against the limit. This span is not billed and
+  is not in the table.
+- **Prices change:** the dollar columns use prices from one date.
+- **Container size:** the CPU and memory size of the container can change
+  the compile time, and the sweep used Modal's defaults.
+
 ## Ablations on the RTX 5070
 
 `airbench94_ablate.py` is the same script with switches. Each row turns one
