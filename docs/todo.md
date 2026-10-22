@@ -86,3 +86,15 @@ labels: [airbench]
 
 Fix the seed for the init, then for the data order, then turn on deterministic kernels.
 Measure the spread left at each step, and check whether one seed gives bitwise-identical runs. Runs locally on the 5070.
+
+## 7. airbench: sweep the SGD learning rate at 8 epochs for a fair Muon ablation
+---
+id: 7
+status: open
+created: 2026-10-21
+updated: 2026-10-21
+priority: medium
+labels: [airbench]
+---
+
+The muon ablation row (80.81%) has no tuning. A small learning-rate and momentum sweep would turn it into a real comparison at equal epochs.
