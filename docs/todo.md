@@ -98,3 +98,18 @@ labels: [airbench]
 ---
 
 The muon ablation row (80.81%) has no tuning. A small learning-rate and momentum sweep would turn it into a real comparison at equal epochs.
+
+## 8. modal-lib: one [tool.modal-lib] per repo; the GPT-2 project needs a second app
+---
+id: 8
+status: open
+created: 2026-10-22
+updated: 2026-10-22
+priority: medium
+labels: []
+---
+
+mlib reads one app, file and recipes path from [tool.modal-lib] in the repo's pyproject.toml.
+speedrun-rta will hold airbench and the GPT-2 speedrun (#1), each with its own app and image.
+Options: a table per project ([tool.modal-lib.airbench]) with `mlib -p airbench`, or `app`/`file` per recipe.
+Decide when #1 starts.
