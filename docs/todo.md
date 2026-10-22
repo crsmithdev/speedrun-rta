@@ -113,3 +113,16 @@ mlib reads one app, file and recipes path from [tool.modal-lib] in the repo's py
 speedrun-rta will hold airbench and the GPT-2 speedrun (#1), each with its own app and image.
 Options: a table per project ([tool.modal-lib.airbench]) with `mlib -p airbench`, or `app`/`file` per recipe.
 Decide when #1 starts.
+
+## 9. modal-lib: test the reused-container path of Run
+---
+id: 9
+status: open
+created: 2026-10-22
+updated: 2026-10-22
+priority: medium
+labels: []
+---
+
+Run marks `reused: true` when a container serves a second run, and `mlib runs` then prints the run time from t_enter.
+Every job uses single_use_containers=True, so no run has taken that path yet. Untested.
