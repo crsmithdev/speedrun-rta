@@ -46,3 +46,17 @@ labels: [project, modal]
 
 Measure MFU, peak memory per GPU, exposed communication time, and loss parity against 1 GPU.
 Then kill one rank. Measure recovery time, and lost work against checkpoint overhead as the checkpoint interval changes.
+
+## 4. Find why Modal call-to-start is 17 to 90 s in some airbench clock calls
+---
+id: 4
+status: open
+created: 2026-10-21
+updated: 2026-10-21
+priority: medium
+labels: [airbench, modal]
+---
+
+Call-to-start was either 2 to 6 s or 17 to 90 s, with 8 concurrent calls against a 10-GPU account limit.
+One possible cause: containers that are still stopping count against the limit.
+Test with concurrency 4 or with spaced calls. Data: airbench/results/clock.jsonl.
