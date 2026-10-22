@@ -106,7 +106,7 @@ The muon ablation row (80.81%) has no tuning. A small learning-rate and momentum
 ## 8. modal-lib: one [tool.modal-lib] per repo; the GPT-2 project needs a second app
 ---
 id: 8
-status: open
+status: done
 created: 2026-10-22
 updated: 2026-10-22
 priority: medium
