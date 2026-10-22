@@ -1,0 +1,21 @@
+# To do
+
+Things to build or look at in speedrun-rta. `aleph todo` owns this file.
+Item numbers never change: commits, the spec and the vault quote them.
+
+## 1. GPT-2 speedrun on Modal: reproduce modded-nanogpt to 3.28 val loss, then real time and cost
+---
+id: 1
+status: open
+created: 2026-10-21
+updated: 2026-10-21
+priority: high
+labels: [project, modal]
+---
+
+Next project; Chris agreed on 2026-10-21. Same format as airbench:
+- Reproduce unchanged on 8x H100.
+- Run several seeds and report P(hit 3.28).
+- Measure real time: cold start and compile.
+- Compare dollars to target on 8x H100, 8x A100, and 1x H100 with gradient accumulation.
+Give it its own pyproject.toml if it needs a different torch.
