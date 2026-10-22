@@ -20,6 +20,10 @@ Next project; Chris agreed on 2026-10-21. Same format as airbench:
 - Compare dollars to target on 8x H100, 8x A100, and 1x H100 with gradient accumulation.
 Give it its own pyproject.toml if it needs a different torch.
 
+### Notes
+
+- 2026-10-22 10:13: 2026-10-22: deferred; Chris picked fault tolerance (#3) next. Ideas if it returns: 1xH100 with grad accumulation (~$2-3/run), HellaSwag vs GPT-2 124M, training past 3.28, Muon vs AdamW weight spectra.
+
 ## 2. GRPO on Qwen2.5-1.5B on Modal: two reward designs at one budget
 ---
 id: 2
