@@ -125,7 +125,7 @@ Decide when #1 starts.
 ## 9. modal-lib: test the reused-container path of Run
 ---
 id: 9
-status: open
+status: dropped
 created: 2026-10-22
 updated: 2026-10-22
 priority: medium
@@ -138,3 +138,4 @@ Every job uses single_use_containers=True, so no run has taken that path yet. Un
 ### Notes
 
 - 2026-10-22 09:06: modal-lib v2 (be47c5c) has no reused-container path: every job runs with single_use_containers=True in a temporary app.
+- 2026-10-22 09:06: modal-lib v2 removed the reused-container path
