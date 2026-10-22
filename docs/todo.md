@@ -39,8 +39,8 @@ Log each case of reward hacking.
 id: 3
 status: open
 created: 2026-10-21
-updated: 2026-10-21
-priority: medium
+updated: 2026-10-22
+priority: high
 labels: [project, modal]
 ---
 
