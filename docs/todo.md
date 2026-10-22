@@ -47,6 +47,10 @@ labels: [project, modal]
 Measure MFU, peak memory per GPU, exposed communication time, and loss parity against 1 GPU.
 Then kill one rank. Measure recovery time, and lost work against checkpoint overhead as the checkpoint interval changes.
 
+### Notes
+
+- 2026-10-22 10:13: 2026-10-22: Chris picked this as the next project and post, over the GPT-2 speedrun (#1).
+
 ## 4. Find why Modal call-to-start is 17 to 90 s in some airbench clock calls
 ---
 id: 4
