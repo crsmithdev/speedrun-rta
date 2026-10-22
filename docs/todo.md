@@ -134,3 +134,7 @@ labels: []
 
 Run marks `reused: true` when a container serves a second run, and `mlib runs` then prints the run time from t_enter.
 Every job uses single_use_containers=True, so no run has taken that path yet. Untested.
+
+### Notes
+
+- 2026-10-22 09:06: modal-lib v2 (be47c5c) has no reused-container path: every job runs with single_use_containers=True in a temporary app.
