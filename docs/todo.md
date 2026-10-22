@@ -66,13 +66,17 @@ Test with concurrency 4 or with spaced calls. Data: airbench/results/clock.jsonl
 id: 5
 status: open
 created: 2026-10-21
-updated: 2026-10-21
+updated: 2026-10-22
 priority: medium
 labels: [airbench, modal]
 ---
 
 Modal gives other A100 and A10 variants in some calls, and the cache misses on each of them (airbench README, "What you ask for is not always what you get").
 Also record which device fills each cache.
+
+### Notes
+
+- 2026-10-22 03:08: The compile cache now lives in modal-lib (modal_lib/cache.py, cache_volume(app, gpu)); key it by device there.
 
 ## 6. airbench: split the 0.13-point run-to-run spread by source
 ---
