@@ -21,8 +21,8 @@ then measures what the record leaves out.
 
 [uv](https://docs.astral.sh/uv/) manages the environment, and
 [Modal](https://modal.com) runs the cloud GPUs.
-[modal-lib](https://github.com/crsmithdev/modal-lib) runs the recipes on
-Modal and records the time and cost of each phase.
+[modal-lib](https://github.com/crsmithdev/modal-lib) runs the recipes in
+`modal.json` on Modal and records the time, GPU use and cost of each run.
 
 ```sh
 uv sync

@@ -1,0 +1,14 @@
+{
+  "app": "airbench-jobs",
+  "image": "airbench/image.py:image",
+  "recipes": {
+    "smoke": {"kind": "job", "gpu": "L4", "timeout": 3600, "cache": true,
+              "cmd": ["python", "airbench94_ablate.py"], "env": {"TRIALS": "2"}},
+    "muon-a100": {"kind": "job", "gpu": "A100-40GB", "timeout": 3600, "cache": true,
+                  "cmd": ["python", "airbench94_muon.py"]},
+    "muon-h100": {"kind": "job", "gpu": "H100", "timeout": 3600, "cache": true,
+                  "cmd": ["python", "airbench94_muon.py"]},
+    "ablate": {"kind": "job", "gpu": "L4", "timeout": 3600, "cache": true,
+               "cmd": ["python", "airbench94_ablate.py"], "env": {"ABLATE": "", "TRIALS": "50"}}
+  }
+}

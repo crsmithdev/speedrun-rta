@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-modal-lib = { git = "https://github.com/crsmithdev/modal-lib" }
+modal-lib = { git = "https://github.com/crsmithdev/modal-lib", rev = "be47c5c" }
 torch = { index = "pytorch-cu128" }
 torchvision = { index = "pytorch-cu128" }
 
@@ -18,9 +18,3 @@ torchvision = { index = "pytorch-cu128" }
 name = "pytorch-cu128"
 url = "https://download.pytorch.org/whl/cu128"
 explicit = true
-
-[tool.modal-lib]
-app = "airbench-jobs"
-file = "airbench/jobs.py"
-function = "bench"
-recipes = "airbench/recipes.json"

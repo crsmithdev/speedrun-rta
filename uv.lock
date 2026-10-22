@@ -672,8 +672,8 @@ wheels = [
 
 [[package]]
 name = "modal-lib"
-version = "0.1.0"
-source = { git = "https://github.com/crsmithdev/modal-lib#81057955d256e878ab7f850ee6cc0440a5f28eb4" }
+version = "0.2.0"
+source = { git = "https://github.com/crsmithdev/modal-lib?rev=be47c5c#be47c5c591a00ddc3c86c80320688f0426d870f2" }
 dependencies = [
     { name = "modal" },
 ]
@@ -1303,7 +1303,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "modal", specifier = ">=1.6.2" },
-    { name = "modal-lib", git = "https://github.com/crsmithdev/modal-lib" },
+    { name = "modal-lib", git = "https://github.com/crsmithdev/modal-lib?rev=be47c5c" },
     { name = "torch", specifier = ">=2.11.0", index = "https://download.pytorch.org/whl/cu128" },
     { name = "torchvision", specifier = ">=0.26.0", index = "https://download.pytorch.org/whl/cu128" },
 ]

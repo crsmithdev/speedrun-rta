@@ -1,6 +1,6 @@
 """The honest clock: time and cost to 94% on CIFAR-10 from a cold start, per Modal GPU.
 
-Each call runs in a fresh container, and modal-lib records wall-clock time
+Each call runs in a fresh container, and rta.py records wall-clock time
 per phase: call to container start, import torch, CUDA init, the compile
 warmup, and each training run of airbench94_muon.py (unchanged). The cached
 variant keeps the Inductor and Triton caches on a Volume per GPU type, as one
@@ -10,7 +10,7 @@ tar archive.
     uv run modal run airbench/clock.py --gpus L4,H100 --repeats 1
 """
 
-import modal_lib as ml  # first: its import time is the container start
+import rta as ml  # first: its import time is the container start
 
 import contextlib
 import io

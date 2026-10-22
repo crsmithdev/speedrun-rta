@@ -11,7 +11,7 @@ import statistics
 import sys
 from collections import defaultdict
 
-from modal_lib import PRICE
+from rta import PRICE
 
 
 def phases(r: dict) -> dict:

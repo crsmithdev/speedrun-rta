@@ -24,9 +24,9 @@ The A100 time is 2.3% above the upstream figure.
 
 In speedrunning, in-game time leaves out the loading screens and real time
 does not. The training time above is in-game time. `clock.py` measures real
-time with [modal-lib](https://github.com/crsmithdev/modal-lib): each call
-starts a fresh Modal container and records wall-clock time
-for each phase until the result.
+time: each call starts a fresh Modal container and records wall-clock time
+for each phase until the result. `rta.py` has the clock, the compile cache
+and the GPU prices.
 
 - **Compile:** the warmup run of `torch.compile(mode="max-autotune")`.
 - **Train:** the script's own training time for one run.
@@ -175,15 +175,14 @@ uv run python summarize.py results/*.log
 ```
 
 On Modal, from the repo root, with [modal-lib](https://github.com/crsmithdev/modal-lib)
-and the recipes in `recipes.json`. The runs need `cifar10/*.pt` from a local
-run first.
+and the recipes in `modal.json` (smoke, muon-a100, muon-h100, ablate). The
+runs need `cifar10/*.pt` from a local run first.
 
 ```sh
-uv run mlib recipes                                  # smoke, muon-a100, muon-h100, ablate
-uv run mlib deploy
 uv run mlib run muon-h100 --wait
 uv run mlib run ablate --set env.ABLATE=whiten
-uv run mlib runs                                     # status, time to start, run time, dollars
-uv run mlib pull <id>                                # log.txt, recipe.json, record.json
+uv run mlib ps                                       # status, times and dollars
+uv run mlib pull <id>                                # to runs/<id>: log.txt, record.json, gpu.csv
+uv run python airbench/summarize.py runs/<id>/log.txt
 uv run modal run airbench/clock.py                   # the real-time sweep
 ```
