@@ -73,3 +73,16 @@ labels: [airbench, modal]
 
 Modal gives other A100 and A10 variants in some calls, and the cache misses on each of them (airbench README, "What you ask for is not always what you get").
 Also record which device fills each cache.
+
+## 6. airbench: split the 0.13-point run-to-run spread by source
+---
+id: 6
+status: open
+created: 2026-10-21
+updated: 2026-10-21
+priority: medium
+labels: [airbench]
+---
+
+Fix the seed for the init, then for the data order, then turn on deterministic kernels.
+Measure the spread left at each step, and check whether one seed gives bitwise-identical runs. Runs locally on the 5070.
