@@ -19,3 +19,17 @@ Next project; Chris agreed on 2026-10-21. Same format as airbench:
 - Measure real time: cold start and compile.
 - Compare dollars to target on 8x H100, 8x A100, and 1x H100 with gradient accumulation.
 Give it its own pyproject.toml if it needs a different torch.
+
+## 2. GRPO on Qwen2.5-1.5B on Modal: two reward designs at one budget
+---
+id: 2
+status: open
+created: 2026-10-21
+updated: 2026-10-21
+priority: medium
+labels: [project, modal]
+---
+
+Compare binary and partial-credit rewards on GSM8K or Countdown at the same budget.
+Report reward curves, output length, and before and after accuracy.
+Log each case of reward hacking.
