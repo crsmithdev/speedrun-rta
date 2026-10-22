@@ -149,3 +149,15 @@ Every job uses single_use_containers=True, so no run has taken that path yet. Un
 
 - 2026-10-22 09:06: modal-lib v2 (be47c5c) has no reused-container path: every job runs with single_use_containers=True in a temporary app.
 - 2026-10-22 09:06: modal-lib v2 removed the reused-container path
+
+## 10. modal-lib: run --wait fails on a queued call with Deadline exceeded
+---
+id: 10
+status: open
+created: 2026-10-22
+updated: 2026-10-22
+priority: medium
+labels: [modal-lib]
+---
+
+mlib run --wait calls call.get() once. When Modal queues the call (seen with gpu L4:4 on 2026-10-22, status PENDING), get() fails after about a minute with ConnectionError('Deadline exceeded'), and mlib exits 1 while the job still waits to start. Poll get(timeout=...) in a loop instead. modal-lib is not in the aleph registry, so the item is here.
