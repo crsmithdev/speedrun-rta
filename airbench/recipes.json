@@ -1,0 +1,11 @@
+{
+  "default": "smoke",
+  "recipes": {
+    "smoke": {"gpu": "L4", "script": "airbench94_ablate.py", "env": {"TRIALS": "2"},
+              "note": "the full recipe, 2 runs, to check the setup"},
+    "muon-a100": {"gpu": "A100-40GB", "script": "airbench94_muon.py", "note": "the reproduction: 200 runs"},
+    "muon-h100": {"gpu": "H100", "script": "airbench94_muon.py", "note": "the reproduction: 200 runs"},
+    "ablate": {"gpu": "L4", "script": "airbench94_ablate.py", "env": {"ABLATE": "", "TRIALS": "50"},
+               "note": "set env.ABLATE to the tricks to turn off"}
+  }
+}

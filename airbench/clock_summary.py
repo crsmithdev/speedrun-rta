@@ -11,13 +11,7 @@ import statistics
 import sys
 from collections import defaultdict
 
-# Modal GPU prices in dollars per second, from modal.com/pricing on 2026-10-21.
-# CPU and memory add under 1% at the default container size and are left out.
-PRICE = {
-    "T4": 0.000164, "L4": 0.000222, "A10": 0.000306, "L40S": 0.000542,
-    "A100-40GB": 0.000583, "A100-80GB": 0.000694, "RTX-PRO-6000": 0.000842,
-    "H100": 0.001097, "H200": 0.001261, "B200": 0.001736,
-}
+from modal_lib import PRICE
 
 
 def phases(r: dict) -> dict:

@@ -4,11 +4,13 @@ version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "modal>=1.6.2",
+    "modal-lib",
     "torch>=2.11.0",
     "torchvision>=0.26.0",
 ]
 
 [tool.uv.sources]
+modal-lib = { git = "https://github.com/crsmithdev/modal-lib" }
 torch = { index = "pytorch-cu128" }
 torchvision = { index = "pytorch-cu128" }
 
@@ -16,3 +18,9 @@ torchvision = { index = "pytorch-cu128" }
 name = "pytorch-cu128"
 url = "https://download.pytorch.org/whl/cu128"
 explicit = true
+
+[tool.modal-lib]
+app = "airbench-jobs"
+file = "airbench/jobs.py"
+function = "bench"
+recipes = "airbench/recipes.json"

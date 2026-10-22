@@ -3,3 +3,5 @@ __pycache__/
 cifar10
 logs/
 .worktrees/
+.modal-lib/
+runs/

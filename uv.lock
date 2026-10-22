@@ -671,6 +671,14 @@ wheels = [
 ]
 
 [[package]]
+name = "modal-lib"
+version = "0.1.0"
+source = { git = "https://github.com/crsmithdev/modal-lib#81057955d256e878ab7f850ee6cc0440a5f28eb4" }
+dependencies = [
+    { name = "modal" },
+]
+
+[[package]]
 name = "mpmath"
 version = "1.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1287,6 +1295,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "modal" },
+    { name = "modal-lib" },
     { name = "torch" },
     { name = "torchvision" },
 ]
@@ -1294,6 +1303,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "modal", specifier = ">=1.6.2" },
+    { name = "modal-lib", git = "https://github.com/crsmithdev/modal-lib" },
     { name = "torch", specifier = ">=2.11.0", index = "https://download.pytorch.org/whl/cu128" },
     { name = "torchvision", specifier = ">=0.26.0", index = "https://download.pytorch.org/whl/cu128" },
 ]
