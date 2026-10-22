@@ -60,3 +60,16 @@ labels: [airbench, modal]
 Call-to-start was either 2 to 6 s or 17 to 90 s, with 8 concurrent calls against a 10-GPU account limit.
 One possible cause: containers that are still stopping count against the limit.
 Test with concurrency 4 or with spaced calls. Data: airbench/results/clock.jsonl.
+
+## 5. Key the airbench compile cache by nvidia-smi device name
+---
+id: 5
+status: open
+created: 2026-10-21
+updated: 2026-10-21
+priority: medium
+labels: [airbench, modal]
+---
+
+Modal gives other A100 and A10 variants in some calls, and the cache misses on each of them (airbench README, "What you ask for is not always what you get").
+Also record which device fills each cache.
