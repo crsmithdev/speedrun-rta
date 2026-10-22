@@ -118,6 +118,10 @@ speedrun-rta will hold airbench and the GPT-2 speedrun (#1), each with its own a
 Options: a table per project ([tool.modal-lib.airbench]) with `mlib -p airbench`, or `app`/`file` per recipe.
 Decide when #1 starts.
 
+### Notes
+
+- 2026-10-22 09:06: modal-lib v2 (be47c5c) reads modal.json from the current directory, so GPT-2 can keep its own app and image in its own folder (e.g. gpt2/modal.json) and run mlib there.
+
 ## 9. modal-lib: test the reused-container path of Run
 ---
 id: 9
