@@ -8,8 +8,8 @@ Item numbers never change: commits, the spec and the vault quote them.
 id: 1
 status: open
 created: 2026-10-21
-updated: 2026-10-21
-priority: high
+updated: 2026-10-22
+priority: medium
 labels: [project, modal]
 ---
 
