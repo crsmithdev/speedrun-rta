@@ -41,7 +41,7 @@ Log each case of reward hacking.
 ## 3. DDP to FSDP2 on 2 to 4 Modal GPUs, with a rank killed mid-run
 ---
 id: 3
-status: open
+status: dropped
 created: 2026-10-21
 updated: 2026-10-22
 priority: high
@@ -56,6 +56,7 @@ Then kill one rank. Measure recovery time, and lost work against checkpoint over
 - 2026-10-22 10:13: 2026-10-22: Chris picked this as the next project and post, over the GPT-2 speedrun (#1).
 - 2026-10-22 15:30: Scope decided 2026-10-22: 4×L4 in one container (PCIe, no NVLink) for all runs, plus one 4×H100 confirmation. Faults: crash (SIGKILL one rank), hang (SIGSTOP one rank, NCCL watchdog), lost container (needs modal-lib retries in the recipe and a run record that survives a second container). Models: GPT-2 124M for scaling and fault runs; 1.5B to show DDP OOM on 24 GB L4 against FSDP2 fitting across 4. Sections: DDP vs FSDP2; DCP checkpoint cost (sync vs async_save); fault timelines; checkpoint interval against Young/Daly; limits. Budget ~$20–35 on L4 plus ~$5 on H100. Launcher torchrun --max-restarts as the recipe cmd; DCP checkpoints on the /runs Volume.
 - 2026-10-22 18:10: Moved to gpu-faults #1 on 2026-10-22: the work is its own repo, ~/gpu-faults (github.com/crsmithdev/gpu-faults).
+- 2026-10-22 18:10: moved to gpu-faults #1
 
 ## 4. Find why Modal call-to-start is 17 to 90 s in some airbench clock calls
 ---
